@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -79,12 +76,24 @@ public class AdminController implements Initializable {
 
         this.studentTable.setItems(null);
         this.studentTable.setItems(studentData);
+
+        studentTable.setRowFactory(tv->{
+            TableRow<StudentData> row = new TableRow<>();
+            row.setOnMouseClicked(clickEvent ->{
+                if(clickEvent.getClickCount() == 2 && (!row.isEmpty())){
+                    System.out.println("Okay, row is clicked");
+                    //continue here, load an fxml file, put clicked row data there
+                    //enable modification.
+                }
+            });
+            return row;
+        });
     }
 
     //add data to database
     @FXML
     private void addStudent(ActionEvent event){
-        String insertSQL = "INSERT INTO students(id, firstNamt, lastName, email, dateOfBirth) VALUES(?,?,?,?)";
+        String insertSQL = "INSERT INTO students(id, fName, lName, email, DOB) VALUES(?,?,?,?,?)";
         try{
             Connection connect = new dbConnection().getConnection();
             PreparedStatement ps = connect.prepareStatement(insertSQL);
