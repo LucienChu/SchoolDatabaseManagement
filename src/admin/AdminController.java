@@ -5,10 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import student.StudentController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -84,6 +90,23 @@ public class AdminController implements Initializable {
                     System.out.println("Okay, row is clicked");
                     //continue here, load an fxml file, put clicked row data there
                     //enable modification.
+
+                    try{
+                        Stage studentStage = new Stage();
+                        FXMLLoader loader = new FXMLLoader();
+                        // load fxml file as root
+                        Pane root = (Pane) loader.load(getClass().getResource("/Admin/modifyData.fxml").openStream());
+                        ModifyDataController modifyDataController = (ModifyDataController) loader.getController();
+
+                        //put root onto a scene
+                        Scene scene = new Scene(root);
+                        studentStage.setScene(scene);
+                        studentStage.setTitle("Student Dashboard");
+                        studentStage.show();
+
+                    }catch(IOException ex){
+                        ex.getStackTrace();
+                    }
                 }
             });
             return row;
