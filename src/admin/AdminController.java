@@ -88,6 +88,7 @@ public class AdminController implements Initializable {
             row.setOnMouseClicked(clickEvent ->{
                 if(clickEvent.getClickCount() == 2 && (!row.isEmpty())){
                     System.out.println("Okay, row is clicked");
+                    StudentData selectedData = row.getItem();
                     //continue here, load an fxml file, put clicked row data there
                     //enable modification.
 
@@ -96,12 +97,15 @@ public class AdminController implements Initializable {
                         FXMLLoader loader = new FXMLLoader();
                         // load fxml file as root
                         Pane root = (Pane) loader.load(getClass().getResource("/Admin/modifyData.fxml").openStream());
-                        ModifyDataController modifyDataController = (ModifyDataController) loader.getController();
 
                         //put root onto a scene
                         Scene scene = new Scene(root);
                         studentStage.setScene(scene);
                         studentStage.setTitle("Student Dashboard");
+
+                        ModifyDataController modifyDataController = (ModifyDataController) loader.getController();
+                        modifyDataController.initialStudentData(selectedData);
+
                         studentStage.show();
 
                     }catch(IOException ex){

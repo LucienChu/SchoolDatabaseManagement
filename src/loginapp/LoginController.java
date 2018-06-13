@@ -83,6 +83,7 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(root);
             studentStage.setScene(scene);
             studentStage.setTitle("Student Dashboard");
+
             studentStage.show();
 
         }catch(IOException ex){
