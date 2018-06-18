@@ -36,7 +36,7 @@ public class AdminController implements Initializable {
     @FXML
     private TableView<StudentData> studentTable = new TableView<StudentData>();
     @FXML
-    private TableView<StudentData> adminTable = new TableView<StudentData>();
+    private TableView<AdminData> adminTable = new TableView<AdminData>();
     //set up student table columns
     @FXML
     private TableColumn<StudentData, String> idColumn;
@@ -58,9 +58,11 @@ public class AdminController implements Initializable {
     @FXML
     private TextField adminLoginId;
     @FXML
-    private TextField adminPassord;
+    private PasswordField adminPassord;
     @FXML
-    private TextField repeateAdminPassword;
+    private PasswordField repeateAdminPassword;
+    @FXML
+    private Label adminLabel;
 
     @FXML
     private TableColumn<AdminData, String> loginIdColumn;
@@ -92,6 +94,7 @@ public class AdminController implements Initializable {
                         rs.getString(5),
                         rs.getDouble(6)));
             }
+            rs.close();
         }catch (SQLException e){
             System.err.println("Error " + e);
         }
@@ -171,8 +174,8 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void loadAdmins(ActionEvent event){
-        String getAdminsSQL = "SELECT login_name FROM login_tbl";
+    private void loadAdminsData(ActionEvent event){
+        String getAdminsSQL = "SELECT * FROM login_tbl";
         try{
             Connection connection = new dbConnection().getConnection();
             this.adminData = FXCollections.observableArrayList();
@@ -181,11 +184,47 @@ public class AdminController implements Initializable {
             while(rs.next()){
                 this.adminData.add(new AdminData(
                         rs.getString(1),
-                        rs.getString(2)));
+                        rs.getString(2),
+                        rs.getString(3)));
                 }
             rs.close();
         }catch(SQLException e){
             System.out.println("Error dectected " + e);
         }
+
+        this.loginIdColumn.setCellValueFactory(new PropertyValueFactory<AdminData, String>("loginName"));
+        this.adminTable.setItems(adminData);
+    }
+
+    @FXML
+    private void addAdmin(ActionEvent event){
+        String addAdminSQL = "INSERT INTO login_tbl(login_name, password) VALUES(?, ?)";
+        if (this.adminLoginId.getText() != "" &&
+                this.adminPassord.getText() != "" &&
+                this.adminPassord.getText().equals(this.repeateAdminPassword.getText())) {
+            try {
+
+                Connection connection = new dbConnection().getConnection();
+                PreparedStatement ps = connection.prepareStatement(addAdminSQL);
+                ps.setString(1, this.adminLoginId.getText());
+                ps.setString(2, this.adminPassord.getText());
+                ps.execute();
+                ps.close();
+                this.adminLabel.setText("New user " + this.adminLoginId.getText() + " is added!");
+            } catch (SQLException e) {
+                this.adminLabel.setText("Error detected, please try again!");
+            }
+        }
+
+        else{
+            this.adminLabel.setText("Error detected within textfields, please double check and LEAVE NO EMPTY");
+        }
+    }
+
+    @FXML
+    private void clearAdminForm(){
+        this.adminLoginId.setText("");
+        this.adminPassord.setText("");
+        this.repeateAdminPassword.setText("");
     }
 }

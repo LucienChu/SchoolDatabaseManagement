@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -122,25 +123,33 @@
                                     <Insets left="50.0" right="50.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="adminPassord" promptText="password">
+                              <PasswordField fx:id="adminPassord" promptText="Passord">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                              <PasswordField fx:id="repeateAdminPassword" promptText="Confirm Password">
                                  <VBox.margin>
                                     <Insets left="50.0" right="50.0" />
                                  </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="repeateAdminPassword" prefHeight="25.0" prefWidth="168.0" promptText="confirmed password">
-                                 <VBox.margin>
-                                    <Insets left="50.0" right="50.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <Button mnemonicParsing="false" onAction="#addStudent" prefHeight="17.0" prefWidth="172.0" text="Add Entry">
+                              </PasswordField>
+                              <Button mnemonicParsing="false" onAction="#addAdmin" prefHeight="17.0" prefWidth="172.0" text="Add Entry">
                                  <padding>
                                     <Insets left="50.0" right="50.0" />
                                  </padding>
                                  <VBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets bottom="5.0" left="50.0" right="50.0" top="20.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="17.0" prefWidth="166.0" text="Clear Form">
+                              <Button mnemonicParsing="false" onAction="#clearAdminForm" prefHeight="17.0" prefWidth="166.0" text="Clear Form">
+                                 <padding>
+                                    <Insets left="50.0" right="50.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#loadAdminsData" prefHeight="17.0" prefWidth="167.0" text="Load Admins">
                                  <padding>
                                     <Insets left="50.0" right="50.0" />
                                  </padding>
@@ -148,14 +157,11 @@
                                     <Insets left="50.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="17.0" prefWidth="167.0" text="Load Admins">
-                                 <padding>
-                                    <Insets left="50.0" right="50.0" />
-                                 </padding>
+                              <Label fx:id="adminLabel" alignment="CENTER" prefHeight="17.0" prefWidth="170.0">
                                  <VBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets left="50.0" right="50.0" top="20.0" />
                                  </VBox.margin>
-                              </Button>
+                              </Label>
                            </children>
                         </VBox>
                      </children>
