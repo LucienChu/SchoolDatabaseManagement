@@ -36,6 +36,9 @@ public class AdminController implements Initializable {
     @FXML
     private TableView<StudentData> studentTable = new TableView<StudentData>();
     @FXML
+    private TableView<StudentData> adminTable = new TableView<StudentData>();
+    //set up student table columns
+    @FXML
     private TableColumn<StudentData, String> idColumn;
     @FXML
     private TableColumn<StudentData, String> firstNameColumn;
@@ -44,11 +47,30 @@ public class AdminController implements Initializable {
     @FXML
     private TableColumn<StudentData, String> emailColumn;
     @FXML
+    private TableColumn<StudentData, String> balanceColumn;
+    @FXML
     private TableColumn<StudentData, String> dateOfBirthColumn;
+
     private ObservableList<StudentData> studentData = null;
+
+
+    //set up admin table columns
+    @FXML
+    private TextField adminLoginId;
+    @FXML
+    private TextField adminPassord;
+    @FXML
+    private TextField repeateAdminPassword;
+
+    @FXML
+    private TableColumn<AdminData, String> loginIdColumn;
+
+    private ObservableList<AdminData> adminData = null;
+
+
     private dbConnection dbc;
 
-    private String sql = "SELECT * FROM students";
+    private String selectStudentSQL = "SELECT * FROM students";
 
     public void initialize(URL url, ResourceBundle rb){
         this.dbc = new dbConnection();
@@ -60,14 +82,15 @@ public class AdminController implements Initializable {
             Connection connect = dbConnection.getConnection();
             this.studentData = FXCollections.observableArrayList();
 
-            ResultSet rs = connect.createStatement().executeQuery(sql);
+            ResultSet rs = connect.createStatement().executeQuery(selectStudentSQL);
             while (rs.next()){
                 this.studentData.add(new StudentData(
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getString(5)));
+                        rs.getString(5),
+                        rs.getDouble(6)));
             }
         }catch (SQLException e){
             System.err.println("Error " + e);
@@ -79,7 +102,7 @@ public class AdminController implements Initializable {
         this.lastNameColumn.setCellValueFactory(new PropertyValueFactory<StudentData, String>("lastName"));
         this.emailColumn.setCellValueFactory(new PropertyValueFactory<StudentData, String>("email"));
         this.dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<StudentData, String>("dateOfBirth"));
-
+        this.balanceColumn.setCellValueFactory(new PropertyValueFactory<StudentData, String>("balance"));
         this.studentTable.setItems(null);
         this.studentTable.setItems(studentData);
 
@@ -87,7 +110,6 @@ public class AdminController implements Initializable {
             TableRow<StudentData> row = new TableRow<>();
             row.setOnMouseClicked(clickEvent ->{
                 if(clickEvent.getClickCount() == 2 && (!row.isEmpty())){
-                    System.out.println("Okay, row is clicked");
                     StudentData selectedData = row.getItem();
                     //continue here, load an fxml file, put clicked row data there
                     //enable modification.
@@ -101,7 +123,7 @@ public class AdminController implements Initializable {
                         //put root onto a scene
                         Scene scene = new Scene(root);
                         studentStage.setScene(scene);
-                        studentStage.setTitle("Student Dashboard");
+                        studentStage.setTitle("Administrator Dashboard");
 
                         ModifyDataController modifyDataController = (ModifyDataController) loader.getController();
                         modifyDataController.initialStudentData(selectedData);
@@ -146,5 +168,24 @@ public class AdminController implements Initializable {
         this.lastName.setText("");
         this.emailAddress.setText("");
         this.dateOfBirth.setValue(null);
+    }
+
+    @FXML
+    private void loadAdmins(ActionEvent event){
+        String getAdminsSQL = "SELECT login_name FROM login_tbl";
+        try{
+            Connection connection = new dbConnection().getConnection();
+            this.adminData = FXCollections.observableArrayList();
+            ResultSet rs = connection.createStatement().executeQuery(getAdminsSQL);
+
+            while(rs.next()){
+                this.adminData.add(new AdminData(
+                        rs.getString(1),
+                        rs.getString(2)));
+                }
+            rs.close();
+        }catch(SQLException e){
+            System.out.println("Error dectected " + e);
+        }
     }
 }

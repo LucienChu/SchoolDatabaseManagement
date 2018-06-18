@@ -3,19 +3,23 @@ package admin;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javax.management.StringValueExp;
+
 public class StudentData {
     private final StringProperty ID;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty email;
     private final StringProperty dateOfBirth;
+    private final StringProperty balance;
 
-    public StudentData(String id, String firstName, String lastName, String email, String birthDate){
+    public StudentData(String id, String firstName, String lastName, String email, String birthDate, double balance){
         this.ID = new SimpleStringProperty(id); //read the documentation
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.email = new SimpleStringProperty(email);
         this.dateOfBirth = new SimpleStringProperty(birthDate);
+        this.balance = new SimpleStringProperty(String.valueOf(balance));
     }
 
     public String getID() {
@@ -54,6 +58,8 @@ public class StudentData {
         return dateOfBirth.get();
     }
 
+    public String getBalance(){ return this.balance.get();}
+
     public StringProperty dateOfBirthProperty() {
         return dateOfBirth;
     }
@@ -77,4 +83,6 @@ public class StudentData {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth.set(dateOfBirth);
     }
+
+    public void setBalance(double balance){this.balance.set(String.valueOf(balance));}
 }

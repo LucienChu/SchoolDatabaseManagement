@@ -17,19 +17,20 @@
     <children>
         <TabPane prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Students">
+                <Tab text="Add Student">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="553.0" prefWidth="1000.0">
                             <children>
                                 <HBox layoutX="266.0" layoutY="-1.0" prefHeight="693.0" prefWidth="1014.0">
                                     <children>
-                                        <TableView fx:id="studentTable" prefHeight="693.0" prefWidth="1017.0">
+                                        <TableView fx:id="studentTable" prefHeight="693.0" prefWidth="1014.0">
                                             <columns>
-                                                <TableColumn fx:id="idColumn" prefWidth="148.0" text="id" />
-                                                <TableColumn fx:id="firstNameColumn" prefWidth="152.0" text="First Name" />
-                                                <TableColumn fx:id="lastNameColumn" prefWidth="156.0" text="Last Name" />
-                                                <TableColumn fx:id="emailColumn" prefWidth="335.0" text="Email Address" />
-                                                <TableColumn fx:id="dateOfBirthColumn" prefWidth="222.0" text="Date of Birth" />
+                                                <TableColumn fx:id="idColumn" prefWidth="104.0" text="Student ID" />
+                                                <TableColumn fx:id="firstNameColumn" prefWidth="143.55557250976562" text="First Name" />
+                                                <TableColumn fx:id="lastNameColumn" prefWidth="155.5555419921875" text="Last Name" />
+                                                <TableColumn fx:id="emailColumn" prefWidth="209.33343505859375" text="Email Address" />
+                                                <TableColumn fx:id="dateOfBirthColumn" prefWidth="187.5556640625" text="Date of Birth" />
+                                    <TableColumn fx:id="balanceColumn" maxWidth="212.00005425347217" minWidth="-1.0" prefWidth="212.00005425347217" text="Balance" />
                                             </columns>
                                         </TableView>
                                     </children>
@@ -96,11 +97,71 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Admin">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
+            <Tab text="Add Admin">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="553.0" prefWidth="1000.0">
+                     <children>
+                        <HBox layoutX="266.0" layoutY="-1.0" prefHeight="693.0" prefWidth="1014.0">
+                           <children>
+                              <TableView fx:id="adminTable" prefHeight="693.0" prefWidth="692.0">
+                                 <columns>
+                                    <TableColumn fx:id="loginIdColumn" prefWidth="184.4444580078125" text="Admin Login ID" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="-2.0" layoutY="1.0" prefHeight="691.0" prefWidth="268.0">
+                           <children>
+                              <Label text="Add Student">
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="adminLoginId" promptText="login id">
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="adminPassord" promptText="password">
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="repeateAdminPassword" prefHeight="25.0" prefWidth="168.0" promptText="confirmed password">
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button mnemonicParsing="false" onAction="#addStudent" prefHeight="17.0" prefWidth="172.0" text="Add Entry">
+                                 <padding>
+                                    <Insets left="50.0" right="50.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="17.0" prefWidth="166.0" text="Clear Form">
+                                 <padding>
+                                    <Insets left="50.0" right="50.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets left="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="17.0" prefWidth="167.0" text="Load Admins">
+                                 <padding>
+                                    <Insets left="50.0" right="50.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets left="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
             </tabs>
         </TabPane>
     </children>
