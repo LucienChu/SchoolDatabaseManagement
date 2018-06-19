@@ -6,12 +6,12 @@ import javafx.beans.property.StringProperty;
 public class AdminData {
     private final StringProperty loginName;
     private final StringProperty password;
-    private final StringProperty devision;
+    private final StringProperty division;
 
-    public AdminData(String loginName, String password, String devision){
+    public AdminData(String loginName, String password, String division){
         this.loginName = new SimpleStringProperty(loginName);
         this.password = new SimpleStringProperty(password);
-        this.devision = new SimpleStringProperty(devision);
+        this.division = new SimpleStringProperty(division);
     }
 
 
@@ -31,4 +31,8 @@ public class AdminData {
     public StringProperty passwordProperty() {
         return password;
     }
+
+    public String getDivision(){return division.get();}
+
+    public StringProperty divisionProperty(){return division;}
 }

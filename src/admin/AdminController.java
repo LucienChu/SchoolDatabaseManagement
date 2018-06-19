@@ -12,9 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import loginapp.option;
 import student.StudentController;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,9 +66,13 @@ public class AdminController implements Initializable {
     private PasswordField repeateAdminPassword;
     @FXML
     private Label adminLabel;
+    @FXML
+    private ComboBox<option> divisionComboBox;
 
     @FXML
     private TableColumn<AdminData, String> loginIdColumn;
+    @FXML
+    private TableColumn<AdminData, String> divisionColumn;
 
     private ObservableList<AdminData> adminData = null;
 
@@ -76,6 +83,8 @@ public class AdminController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb){
         this.dbc = new dbConnection();
+        this.divisionComboBox.setItems(FXCollections.observableArrayList(option.values()));
+        this.divisionComboBox.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -114,8 +123,6 @@ public class AdminController implements Initializable {
             row.setOnMouseClicked(clickEvent ->{
                 if(clickEvent.getClickCount() == 2 && (!row.isEmpty())){
                     StudentData selectedData = row.getItem();
-                    //continue here, load an fxml file, put clicked row data there
-                    //enable modification.
 
                     try{
                         Stage studentStage = new Stage();
@@ -193,21 +200,23 @@ public class AdminController implements Initializable {
         }
 
         this.loginIdColumn.setCellValueFactory(new PropertyValueFactory<AdminData, String>("loginName"));
+        this.divisionColumn.setCellValueFactory(new PropertyValueFactory<AdminData, String>("division"));
         this.adminTable.setItems(adminData);
     }
 
     @FXML
-    private void addAdmin(ActionEvent event){
-        String addAdminSQL = "INSERT INTO login_tbl(login_name, password) VALUES(?, ?)";
+    private void addUser(ActionEvent event) throws InvocationTargetException{
+
+        String addAdminSQL = "INSERT INTO login_tbl(login_name, password, division) VALUES(?, ?, ?)";
         if (this.adminLoginId.getText() != "" &&
                 this.adminPassord.getText() != "" &&
                 this.adminPassord.getText().equals(this.repeateAdminPassword.getText())) {
             try {
-
                 Connection connection = new dbConnection().getConnection();
                 PreparedStatement ps = connection.prepareStatement(addAdminSQL);
                 ps.setString(1, this.adminLoginId.getText());
                 ps.setString(2, this.adminPassord.getText());
+                ps.setString(3, this.divisionComboBox.getValue().toString());
                 ps.execute();
                 ps.close();
                 this.adminLabel.setText("New user " + this.adminLoginId.getText() + " is added!");
