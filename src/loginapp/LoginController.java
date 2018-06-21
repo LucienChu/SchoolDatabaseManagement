@@ -16,6 +16,7 @@ import student.StudentController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -51,6 +52,7 @@ public class LoginController implements Initializable {
             String password = this.password.getText();
             String opt = this.comboBox.getValue().toString();
             if(this.loginModel.isLogin(userName, password, opt)){
+                //close a current windown
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
                 stage.close();
                 switch (this.comboBox.getValue().toString()){
@@ -60,7 +62,7 @@ public class LoginController implements Initializable {
                         break;
                     }
                     case "Student":{
-                        studentLogin();
+                        studentLogin(this.loginModel.studentData);
                         break;
                     }
                 }
@@ -74,18 +76,21 @@ public class LoginController implements Initializable {
 
     }
 
-    public void studentLogin(){
+    public void studentLogin(StudentData studentData){
+
         try{
             Stage studentStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             // load fxml file as root
             Pane root = (Pane) loader.load(getClass().getResource("/student/Student.fxml").openStream());
             StudentController studentController = (StudentController) loader.getController();
+            studentController.setStudentData(studentData);
 
             //put root onto a scene
             Scene scene = new Scene(root);
             studentStage.setScene(scene);
             studentStage.setTitle("Student Dashboard");
+            studentController.initializeStudentData();
 
             studentStage.show();
 
