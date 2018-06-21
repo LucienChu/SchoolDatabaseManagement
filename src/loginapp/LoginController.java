@@ -1,6 +1,8 @@
 package loginapp;
 
 import admin.AdminController;
+import admin.AdminData;
+import admin.StudentData;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +55,8 @@ public class LoginController implements Initializable {
                 stage.close();
                 switch (this.comboBox.getValue().toString()){
                     case "Admin": {
-                        adminLogin();
+                        AdminData loginAdmin = new AdminData(userName, password, opt);
+                        adminLogin(loginAdmin);
                         break;
                     }
                     case "Student":{
@@ -91,7 +94,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void adminLogin(){
+    public void adminLogin(AdminData adminData){
         try{
             Stage adminStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -99,6 +102,7 @@ public class LoginController implements Initializable {
             Pane root = (Pane) loader.load(getClass().getResource("/admin/Admin.fxml").openStream());
 
             AdminController adminController = (AdminController) loader.getController();
+            adminController.setAdmin(adminData);
 
             //put root onto a scene
             Scene scene = new Scene(root);

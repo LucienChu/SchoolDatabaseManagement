@@ -161,7 +161,15 @@
                                     <Insets left="50.0" right="50.0" />
                                  </padding>
                                  <VBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets bottom="5.0" left="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#loadDeleteAdminForm" prefHeight="17.0" prefWidth="199.0" text="Delete Admin">
+                                 <padding>
+                                    <Insets left="50.0" right="50.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
                                  </VBox.margin>
                               </Button>
                               <Label fx:id="adminLabel" alignment="CENTER" prefHeight="17.0" prefWidth="170.0">

@@ -8,13 +8,12 @@ public class AdminData {
     private final StringProperty password;
     private final StringProperty division;
 
+
     public AdminData(String loginName, String password, String division){
         this.loginName = new SimpleStringProperty(loginName);
         this.password = new SimpleStringProperty(password);
         this.division = new SimpleStringProperty(division);
     }
-
-
 
     public String getLoginName() {
         return loginName.get();

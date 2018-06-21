@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import loginapp.option;
 import student.StudentController;
 
+import javax.swing.*;
 import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -80,6 +81,8 @@ public class AdminController implements Initializable {
     private dbConnection dbc;
 
     private String selectStudentSQL = "SELECT * FROM students";
+
+    private AdminData currentAdmim;
 
     public void initialize(URL url, ResourceBundle rb){
         this.dbc = new dbConnection();
@@ -236,4 +239,36 @@ public class AdminController implements Initializable {
         this.adminPassord.setText("");
         this.repeateAdminPassword.setText("");
     }
+
+    @FXML
+    private void loadDeleteAdminForm(){
+        this.dbc = new dbConnection();
+        try{
+            Stage deleteAdminStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+
+            Pane root = loader.load(getClass().getResource("/Admin/DeleteAdmin.fxml").openStream());
+            Scene scene = new Scene(root);
+            deleteAdminStage.setScene(scene);
+            deleteAdminStage.setTitle("Delete Admin");
+            DeleteAdminController deleteAdminController = loader.getController();
+
+            deleteAdminController.setCurrentAdmin(new AdminData(currentAdmim.getLoginName(), currentAdmim.getPassword(), currentAdmim.getDivision()));
+            System.out.println("here");
+
+            deleteAdminStage.show();
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    public void setAdmin(AdminData admin){
+        this.currentAdmim = admin;
+    }
+
+    public static void closeWindow(Button btn, ActionEvent event){
+        Stage stage = (Stage) btn.getScene().getWindow();
+        stage.close();
+    }
+
 }
