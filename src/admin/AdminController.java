@@ -254,7 +254,6 @@ public class AdminController implements Initializable {
             DeleteAdminController deleteAdminController = loader.getController();
 
             deleteAdminController.setCurrentAdmin(new AdminData(currentAdmim.getLoginName(), currentAdmim.getPassword(), currentAdmim.getDivision()));
-            System.out.println("here");
 
             deleteAdminStage.show();
         }catch(IOException e){

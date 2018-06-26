@@ -17,10 +17,9 @@
       <TextField fx:id="studentLastName" layoutX="252.0" layoutY="195.0" />
       <TextField fx:id="email" layoutX="252.0" layoutY="245.0" />
       <TextField fx:id="dateOfBirth" layoutX="252.0" layoutY="293.0" />
-      <Button layoutX="127.0" layoutY="394.0" mnemonicParsing="false" text="Update" />
       <Label layoutX="149.0" layoutY="341.0" text="Current Balance" />
       <TextField fx:id="currentBalance" layoutX="252.0" layoutY="337.0" />
-      <Button layoutX="244.0" layoutY="394.0" mnemonicParsing="false" text="Pay" />
+      <Button layoutX="161.0" layoutY="394.0" mnemonicParsing="false" onAction="#pay" text="Pay" />
       <Button layoutX="351.0" layoutY="394.0" mnemonicParsing="false" text="Cancel" />
    </children>
 </AnchorPane>
