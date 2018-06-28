@@ -20,6 +20,7 @@
       <Label layoutX="149.0" layoutY="341.0" text="Current Balance" />
       <TextField fx:id="currentBalance" layoutX="252.0" layoutY="337.0" />
       <Button layoutX="161.0" layoutY="394.0" mnemonicParsing="false" onAction="#pay" text="Pay" />
-      <Button layoutX="351.0" layoutY="394.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="cancelBtn" layoutX="351.0" layoutY="394.0" mnemonicParsing="false" onAction="#closeWindow" text="Cancel" />
+      <Button layoutX="252.0" layoutY="394.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
    </children>
 </AnchorPane>

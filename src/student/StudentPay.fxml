@@ -7,9 +7,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="student.StudentPayController">
    <children>
-      <TextField layoutX="180.0" layoutY="161.0" promptText="Enter Acmount" />
-      <Button layoutX="86.0" layoutY="272.0" mnemonicParsing="false" text="Okay" />
-      <Button layoutX="235.0" layoutY="272.0" mnemonicParsing="false" text="Cancel" />
+      <TextField fx:id="inputAmount" layoutX="180.0" layoutY="161.0" promptText="Enter Acmount" />
+      <Button layoutX="86.0" layoutY="272.0" mnemonicParsing="false" onAction="#addPayment" text="Okay" />
+      <Button fx:id="cancelBtn" layoutX="235.0" layoutY="272.0" mnemonicParsing="false" onAction="#closeWindow" text="Cancel" />
       <Label layoutX="86.0" layoutY="161.0" prefHeight="25.0" prefWidth="74.0" text="Enter Amount" />
+      <Label fx:id="paymentLabel" layoutX="153.0" layoutY="235.0" prefHeight="17.0" prefWidth="66.0" text="Connected" />
    </children>
 </AnchorPane>
